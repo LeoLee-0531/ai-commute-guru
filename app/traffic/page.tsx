@@ -1,17 +1,49 @@
 import type { Metadata } from "next"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Bus, Train, Car, AlertTriangle, Clock } from "lucide-react"
+import { Bus, Train, AlertTriangle, Clock, Bike, Maximize, Plus, Minus } from "lucide-react"
+import BusMap from "@/public/map/map_bus.png"
+import BikeMap from "@/public/map/map_bike.jpg"
+import MRTMap from "@/public/map/map_MRT.jpg"
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const metadata: Metadata = {
   title: "即時交通資訊",
 }
 
 export default function TrafficPage() {
+
   return (
     <div className="container py-6">
       <h1 className="text-3xl font-bold mb-6">即時交通資訊</h1>
+
+      <div className="w-full my-8 p-6 bg-white rounded-lg shadow">
+        <h2 className="text-xl font-bold mb-6">路線查詢</h2>
+        <form className="space-y-4">
+          <div>
+            <Label htmlFor="start" className="block mb-1">起點</Label>
+            <Input
+              id="start"
+              defaultValue={"當下位置"}
+              placeholder="請輸入起點"
+              className="w-full"
+            />
+          </div>
+          <div>
+            <Label htmlFor="end" className="block mb-1">終點</Label>
+            <Input
+              id="end"
+              placeholder="請輸入終點"
+              className="w-full"
+            />
+          </div>
+          <Badge className="w-full p-2 text-md">查詢</Badge>
+        </form>
+      </div>
 
       <Tabs defaultValue="bus" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
@@ -24,8 +56,8 @@ export default function TrafficPage() {
             <span>捷運</span>
           </TabsTrigger>
           <TabsTrigger value="shuttle" className="flex items-center gap-2">
-            <Car className="h-4 w-4" />
-            <span>接駁車</span>
+            <Bike className="h-4 w-4" />
+            <span>U-bike</span>
           </TabsTrigger>
         </TabsList>
 
@@ -34,7 +66,7 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>307路</CardTitle>
+                  <CardTitle className="text-2xl">307</CardTitle>
                   <Badge className="bg-green-500">正常營運</Badge>
                 </div>
                 <CardDescription>往返市中心與科技園區</CardDescription>
@@ -46,10 +78,10 @@ export default function TrafficPage() {
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>下一班</span>
                     </div>
-                    <span className="font-medium">3分鐘</span>
+                    <span className="font-medium">擁擠度</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">3分鐘</span>
                     <div className="flex gap-1">
                       <span className="w-2 h-6 bg-green-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-green-500 rounded-sm"></span>
@@ -65,7 +97,7 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>513路</CardTitle>
+                  <CardTitle className="text-2xl">513</CardTitle>
                   <Badge className="bg-yellow-500">輕微延誤</Badge>
                 </div>
                 <CardDescription>往返火車站與大學城</CardDescription>
@@ -77,10 +109,10 @@ export default function TrafficPage() {
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>下一班</span>
                     </div>
-                    <span className="font-medium">7分鐘</span>
+                    <span className="font-medium">擁擠度</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">7分鐘</span>
                     <div className="flex gap-1">
                       <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
@@ -96,7 +128,7 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>281路</CardTitle>
+                  <CardTitle className="text-2xl">281</CardTitle>
                   <Badge variant="destructive">路線改道</Badge>
                 </div>
                 <CardDescription>往返商業區與住宅區</CardDescription>
@@ -108,10 +140,10 @@ export default function TrafficPage() {
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>下一班</span>
                     </div>
-                    <span className="font-medium">12分鐘</span>
+                    <span className="font-medium">擁擠度</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">12分鐘</span>
                     <div className="flex gap-1">
                       <span className="w-2 h-6 bg-red-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-red-500 rounded-sm"></span>
@@ -129,10 +161,18 @@ export default function TrafficPage() {
             </Card>
           </div>
 
-          <div className="mt-8 aspect-video w-full rounded-lg border bg-muted flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-muted-foreground">互動式地圖將顯示在此處</p>
-              <p className="text-xs text-muted-foreground">整合公車路線、站點與即時位置資訊</p>
+          <div className="mt-8 aspect-video w-full rounded-lg border bg-muted relative overflow-hidden flex items-center justify-center">
+            <Image
+              src={BusMap}
+              alt="交通地圖"
+              className="rounded-lg object-cover w-full h-full"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+            <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+              <Button className="bg-white"><Maximize className="text-black"></Maximize></Button>
+              <Button className="bg-white"><Plus className="text-black"></Plus></Button>
+              <Button className="bg-white"><Minus className="text-black"></Minus></Button>
             </div>
           </div>
         </TabsContent>
@@ -142,7 +182,7 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>紅線</CardTitle>
+                  <CardTitle className="text-2xl">紅線</CardTitle>
                   <Badge className="bg-green-500">正常營運</Badge>
                 </div>
                 <CardDescription>南北向主要幹線</CardDescription>
@@ -154,10 +194,10 @@ export default function TrafficPage() {
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>下一班</span>
                     </div>
-                    <span className="font-medium">2分鐘</span>
+                    <span className="font-medium">擁擠度</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">2分鐘</span>
                     <div className="flex gap-1">
                       <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
@@ -173,7 +213,7 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>藍線</CardTitle>
+                  <CardTitle className="text-2xl">藍線</CardTitle>
                   <Badge className="bg-green-500">正常營運</Badge>
                 </div>
                 <CardDescription>東西向連接線</CardDescription>
@@ -185,10 +225,10 @@ export default function TrafficPage() {
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <span>下一班</span>
                     </div>
-                    <span className="font-medium">4分鐘</span>
+                    <span className="font-medium">擁擠度</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">4分鐘</span>
                     <div className="flex gap-1">
                       <span className="w-2 h-6 bg-green-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-green-500 rounded-sm"></span>
@@ -203,10 +243,16 @@ export default function TrafficPage() {
           </div>
 
           <div className="mt-8 aspect-video w-full rounded-lg border bg-muted flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-muted-foreground">捷運路線圖將顯示在此處</p>
-              <p className="text-xs text-muted-foreground">整合各線路即時列車位置與擁擠度資訊</p>
-            </div>
+            <Image
+              src={MRTMap}
+              alt="交通地圖"
+              className="rounded-lg object-cover w-full h-full"
+            />
+          </div>
+          <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+            <Button className="bg-white"><Maximize className="text-black"></Maximize></Button>
+            <Button className="bg-white"><Plus className="text-black"></Plus></Button>
+            <Button className="bg-white"><Minus className="text-black"></Minus></Button>
           </div>
         </TabsContent>
 
@@ -215,26 +261,17 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>校園接駁車A</CardTitle>
-                  <Badge className="bg-green-500">正常營運</Badge>
+                  <CardTitle className="text-2xl">公館站(2號出口)</CardTitle>
                 </div>
-                <CardDescription>校區內環線</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>下一班</span>
-                    </div>
-                    <span className="font-medium">5分鐘</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">剩餘 10 台</span>
                     <div className="flex gap-1">
-                      <span className="w-2 h-6 bg-green-500 rounded-sm"></span>
-                      <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
-                      <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
+                      <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
+                      <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
+                      <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
                       <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
                       <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
                     </div>
@@ -246,25 +283,16 @@ export default function TrafficPage() {
             <Card>
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle>校園接駁車B</CardTitle>
-                  <Badge className="bg-green-500">正常營運</Badge>
+                  <CardTitle className="text-2xl">汀周思源街口東南側</CardTitle>
                 </div>
-                <CardDescription>校區外環線</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>下一班</span>
-                    </div>
-                    <span className="font-medium">8分鐘</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">擁擠度</span>
+                    <span className="text-muted-foreground">剩餘 3 台</span>
                     <div className="flex gap-1">
-                      <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
-                      <span className="w-2 h-6 bg-yellow-500 rounded-sm"></span>
+                      <span className="w-2 h-6 bg-red-500 rounded-sm"></span>
+                      <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
                       <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
                       <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
                       <span className="w-2 h-6 bg-gray-200 rounded-sm"></span>
@@ -276,10 +304,16 @@ export default function TrafficPage() {
           </div>
 
           <div className="mt-8 aspect-video w-full rounded-lg border bg-muted flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-muted-foreground">接駁車路線圖將顯示在此處</p>
-              <p className="text-xs text-muted-foreground">整合校園接駁車即時位置與路線資訊</p>
-            </div>
+            <Image
+              src={BikeMap}
+              alt="交通地圖"
+              className="rounded-lg object-cover w-full h-full"
+            />
+          </div>
+          <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+            <Button className="bg-white"><Maximize className="text-black"></Maximize></Button>
+            <Button className="bg-white"><Plus className="text-black"></Plus></Button>
+            <Button className="bg-white"><Minus className="text-black"></Minus></Button>
           </div>
         </TabsContent>
       </Tabs>

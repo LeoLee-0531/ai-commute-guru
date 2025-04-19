@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,6 +20,9 @@ import {
   ArrowUpRight,
   Clock,
 } from "lucide-react";
+import coffee from "@/public/stocks/coffee.jpg";
+import hamburger from "@/public/stocks/hamburger.jpg";
+import highSpeedRail from "@/public/stocks/high-speed-rail.jpg";
 
 export const metadata: Metadata = {
   title: "綠色點數",
@@ -32,7 +36,7 @@ export default function GreenPointsPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
         <Card className="bg-gradient-to-br from-green-50 to-emerald-50">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <Leaf className="h-5 w-5 text-green-600" />
               我的綠色點數
             </CardTitle>
@@ -63,7 +67,7 @@ export default function GreenPointsPage() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <Trophy className="h-5 w-5 text-amber-500" />
               我的減碳成就
             </CardTitle>
@@ -104,7 +108,7 @@ export default function GreenPointsPage() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <Calendar className="h-5 w-5 text-blue-600" />
               綠色出行記錄
             </CardTitle>
@@ -169,12 +173,16 @@ export default function GreenPointsPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle>校園餐廳折扣券</CardTitle>
+                <CardTitle className="text-2xl">咖啡</CardTitle>
                 <CardDescription>使用綠色點數兌換餐飲優惠</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="aspect-video bg-muted rounded-md flex items-center justify-center mb-4">
-                  <Gift className="h-12 w-12 text-green-500 opacity-50" />
+                <div className="aspect-video bg-muted rounded flex items-center justify-center mb-4">
+                  <Image
+                    src={coffee}
+                    alt="Coffee"
+                    className="rounded"
+                  />
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-1 text-green-600">
@@ -191,12 +199,16 @@ export default function GreenPointsPage() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle>校園商店禮品卡</CardTitle>
-                <CardDescription>價值100元的校園商店禮品卡</CardDescription>
+                <CardTitle className="text-2xl">漢堡</CardTitle>
+                <CardDescription>使用綠色點數兌換餐飲優惠</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="aspect-video bg-muted rounded-md flex items-center justify-center mb-4">
-                  <Gift className="h-12 w-12 text-green-500 opacity-50" />
+                  <Image
+                    src={hamburger}
+                    alt="hamburger"
+                    className="rounded"
+                  />
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-1 text-green-600">
@@ -213,12 +225,16 @@ export default function GreenPointsPage() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle>公車月票折扣</CardTitle>
-                <CardDescription>公車月票8折優惠</CardDescription>
+                <CardTitle className="text-2xl">高鐵票折扣</CardTitle>
+                <CardDescription>高鐵票8折優惠</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="aspect-video bg-muted rounded-md flex items-center justify-center mb-4">
-                  <Gift className="h-12 w-12 text-green-500 opacity-50" />
+                  <Image
+                    src={highSpeedRail}
+                    alt="highSpeedRail"
+                    className="rounded"
+                  />
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-1 text-green-600">
@@ -238,7 +254,7 @@ export default function GreenPointsPage() {
         <TabsContent value="ranking" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>本月減碳排行榜</CardTitle>
+              <CardTitle className="text-2xl">本月減碳排行榜</CardTitle>
               <CardDescription>看看誰是本月最環保的用戶</CardDescription>
             </CardHeader>
             <CardContent>

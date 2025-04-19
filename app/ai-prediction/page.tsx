@@ -145,13 +145,6 @@ export default function AIPredictionPage() {
               </CardContent>
             </Card>
           </div>
-
-          <div className="mt-8 aspect-video w-full rounded-lg border bg-muted flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-muted-foreground">交通流量熱力圖將顯示在此處</p>
-              <p className="text-xs text-muted-foreground">根據AI預測的各時段交通擁擠情況</p>
-            </div>
-          </div>
         </TabsContent>
 
         <TabsContent value="tomorrow" className="mt-4">
